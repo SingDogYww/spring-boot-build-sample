@@ -1,0 +1,21 @@
+name: Trigger Docs Build
+on:
+  push:
+    branches: '3.3.x'
+    paths: [ 'antora/*' ]
+permissions:
+  actions: write
+jobs:
+  trigger-docs-build:
+    name: Trigger Docs Build
+    if: github.repository_owner == 'spring-projects'
+    runs-on: ${{ vars.UBUNTU_SMALL || 'ubuntu-latest' }}
+    steps:
+    - name: Check Out
+      uses: actions/checkout@v4
+      with:
+        ref: docs-build
+    - name: Trigger Workflow
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: gh workflow run deploy-docs.yml -r docs-build -f build-refname=${{ github.event.inputs.build-refname }} -f build-version=${{ github.event.inputs.build-version }}

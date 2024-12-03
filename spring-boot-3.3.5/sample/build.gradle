@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.springframework.boot'
+version = '3.3.5'
+
+description = "sample"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	implementation(project(":spring-boot-project:spring-boot-starters:spring-boot-starter-web"))
+	implementation(project(":spring-boot-project:spring-boot-starters:spring-boot-starter-web-services"))
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}

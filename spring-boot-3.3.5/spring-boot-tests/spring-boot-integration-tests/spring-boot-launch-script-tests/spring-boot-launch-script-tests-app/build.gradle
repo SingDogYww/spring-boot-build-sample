@@ -1,0 +1,19 @@
+plugins {
+	id "java"
+	id "org.springframework.boot"
+}
+
+repositories {
+	maven { url "file:${rootDir}/../docker-test-maven-repository"}
+	mavenCentral()
+	spring.mavenRepositories()
+}
+
+dependencies {
+	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
+	implementation("org.apache.tomcat.embed:tomcat-embed-core")
+}
+
+bootJar {
+	launchScript()
+}
